@@ -13,8 +13,8 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v3
-        with:
-         fetch-depth: 2
+      with:
+       fetch-depth: 2
     - run: echo Applying on path ${{ inputs.on-path }}.
       shell: bash
     - id: random-number-generator
