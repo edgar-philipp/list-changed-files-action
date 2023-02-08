@@ -2,7 +2,7 @@
 
 echo "::group::transform-to-github-matrix"
 
-changed_files="$CHANGED_FILES"
+changed_files=( $(echo "$CHANGED_FILES") )
 
 for i in "${!changed_files[@]}"; do
   changed_files[$i]="{\"file\": \"${changed_files[$i]}\"}"
