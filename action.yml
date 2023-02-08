@@ -6,9 +6,9 @@ inputs:
     required: true
     default: 'openapi/**'
 outputs:
-  changed-files-json:
+  matrix:
     description: "GitHub Matrix in JSON format with changed files"
-    value: ${{ steps.random-number-generator.outputs.random-number }}
+    value: ${{ steps.transform-to-matrix.outputs.matrix }}
 runs:
   using: "composite"
   steps:
@@ -20,8 +20,8 @@ runs:
     - id: random-number-generator
       run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
       shell: bash
-    - run: $GITHUB_ACTION_PATH/list_changed_files.sh
-      id: list-changed-files
+    - id: list-files
+      run: $GITHUB_ACTION_PATH/list_changed_files.sh
       shell: bash
       env:
         GITHUB_SERVER_URL: ${{ github.server_url }}
@@ -32,3 +32,8 @@ runs:
         PREVIOUS_HASH: ${{ github.event.before }}
         CURRENT_HASH: ${{ github.event.after }}
         PATH_FILTER: ${{ inputs.on-path }}
+    - id: transform-to-matrix
+      run: $GITHUB_ACTION_PATH/tranform_to_github_matrix.sh
+      shell: bash
+      env:
+        CHANGED_FILES: ${{ steps.list-files.outputs.changed_files }}
