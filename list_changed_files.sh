@@ -2,6 +2,7 @@
 
 echo "::group::list-changed-files"
 
+# filter M = modified
 list=$(git diff-tree --diff-filter=M --no-commit-id --name-only -r $CURRENT_HASH -- '$PATH_FILTER/*.yml' '$PATH_FILTER/*.yaml')
 echo "Changed files: $list"
 
