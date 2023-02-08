@@ -1,23 +1,30 @@
-name: 'Hello World'
-description: 'Greet someone'
+name: 'List changed OpenAPI files'
+description: 'Lists the changed OpenAPI yaml files in a given subdirectory of the git workspace'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  on-path:  
+    description: 'filter for the subdirectory of the git workspace to scan'
     required: true
-    default: 'World'
+    default: 'openapi/**'
 outputs:
-  random-number:
-    description: "Random number"
+  changed-files-json:
+    description: "GitHub Matrix in JSON format with changed files"
     value: ${{ steps.random-number-generator.outputs.random-number }}
 runs:
   using: "composite"
   steps:
-    - run: echo Hello ${{ inputs.who-to-greet }}.
+    - run: echo Applying on path ${{ inputs.on-path }}.
       shell: bash
     - id: random-number-generator
       run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
       shell: bash
-    - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
+    - run: $GITHUB_ACTION_PATH/list_changed_files.sh
+      id: list-changed-files
       shell: bash
-    - run: list_changed_files.sh
-      shell: bash
+      env:
+        GITHUB_SERVER_URL: ${{ github.server_url }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        GITHUB_REF: ${{ github.ref }}
+        GITHUB_SHA: ${{ github.sha }}
+        GITHUB_WORKSPACE: ${{ github.workspace }}
+        GITHUB_EVENT_BEFORE: ${{ github.event.before }}
+        GITHUB_EVENT_AFTER: ${{ github.event.after }}
