@@ -33,7 +33,7 @@ runs:
         CURRENT_HASH: ${{ github.event.after }}
         PATH_FILTER: ${{ inputs.on-path }}
     - id: transform-to-matrix
-      run: $GITHUB_ACTION_PATH/tranform_to_github_matrix.sh
+      run: $GITHUB_ACTION_PATH/transform_to_github_matrix.sh
       shell: bash
       env:
         CHANGED_FILES: ${{ steps.list-files.outputs.changed_files }}
