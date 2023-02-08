@@ -1,4 +1,4 @@
-name: 'List changed OpenAPI files'
+name: 'Identify changed OpenAPI files'
 description: 'Lists the changed OpenAPI yaml files in a given subdirectory of the git workspace'
 inputs:
   on-path:  
@@ -12,6 +12,9 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - uses: actions/checkout@v3
+        with:
+         fetch-depth: 2
     - run: echo Applying on path ${{ inputs.on-path }}.
       shell: bash
     - id: random-number-generator
