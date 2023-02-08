@@ -2,7 +2,7 @@
 
 echo "::group::list-changed-files"
 
-list=$(git diff-tree --diff-filter=M --no-commit-id --name-only -r $CURRENT_HASH -- 'openapi/**/*.yml' 'openapi/**/*.yaml')
+list=$(git diff-tree --diff-filter=M --no-commit-id --name-only -r $CURRENT_HASH -- '$PATH_FILTER/*.yml' '$PATH_FILTER/*.yaml')
 echo "Changed files: $list"
 
 changed_files="(${list[*]//$'\n'/ })"
