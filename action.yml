@@ -26,5 +26,6 @@ runs:
         GITHUB_REF: ${{ github.ref }}
         GITHUB_SHA: ${{ github.sha }}
         GITHUB_WORKSPACE: ${{ github.workspace }}
-        GITHUB_EVENT_BEFORE: ${{ github.event.before }}
-        GITHUB_EVENT_AFTER: ${{ github.event.after }}
+        PREVIOUS_HASH: ${{ github.event.before }}
+        CURRENT_HASH: ${{ github.event.after }}
+        PATH_FILTER: ${{ inputs.on-path }}
