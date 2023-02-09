@@ -3,6 +3,8 @@
 echo "::group::transform-to-github-matrix"
 
 changed_files=( $(echo "$CHANGED_FILES") )
+echo "Changed files to transform: $changed_files"
+
 matrix=$(echo "{}")
 
 if [ -n "$changed_files" ]; then
@@ -15,8 +17,5 @@ fi
 
 echo "Matrix: $matrix"
 echo "matrix=$matrix" >> $GITHUB_OUTPUT
-
-echo "git log --oneline"
-echo $(git log --oneline)
 
 echo "::endgroup::"
