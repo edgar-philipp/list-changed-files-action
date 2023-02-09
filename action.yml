@@ -14,12 +14,7 @@ runs:
   steps:
     - uses: actions/checkout@v3
       with:
-       fetch-depth: 2
-    - run: echo Applying on path ${{ inputs.on-path }}.
-      shell: bash
-    - id: random-number-generator
-      run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
-      shell: bash
+        fetch-depth: 2
     - id: list-files
       run: $GITHUB_ACTION_PATH/list_changed_files.sh
       shell: bash
