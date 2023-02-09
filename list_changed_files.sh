@@ -11,6 +11,7 @@ echo $command
 list=$( eval $command)
 echo "Changed files: $list"
 
+# Remove CarriageReturn and LineFeed (CR/LF):
 changed_files="${list[*]//$'\n'/ }"
 echo "changed_files=${changed_files}" >> $GITHUB_OUTPUT
 
