@@ -12,10 +12,12 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v3
+    - name: Checkout Git Repository
+      uses: actions/checkout@v3
       with:
         fetch-depth: 2
-    - id: list-files
+    - name: Identify changed OpenAPI files
+      id: list-files
       run: $GITHUB_ACTION_PATH/list_changed_files.sh
       shell: bash
       env:
@@ -27,7 +29,8 @@ runs:
         PREVIOUS_HASH: ${{ github.event.before }}
         CURRENT_HASH: ${{ github.event.after }}
         PATH_FILTER: ${{ inputs.on-path }}
-    - id: transform-to-matrix
+    - name: Transform into GitHub matrix (special JSON format)
+      id: transform-to-matrix
       run: $GITHUB_ACTION_PATH/transform_to_github_matrix.sh
       shell: bash
       env:
