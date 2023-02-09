@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "git log --oneline"
-echo $(git log --oneline)
-
 echo "::group::transform-to-github-matrix"
 
 changed_files=( $(echo "$CHANGED_FILES") )
@@ -18,5 +15,8 @@ fi
 
 echo "Matrix: $matrix"
 echo "matrix=$matrix" >> $GITHUB_OUTPUT
+
+echo "git log --oneline"
+echo $(git log --oneline)
 
 echo "::endgroup::"
