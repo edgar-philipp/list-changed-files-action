@@ -3,7 +3,7 @@
 echo "::group::Transform to GitHub Matrix"
 
 changed_files=( $(echo "$CHANGED_FILES") )
-echo "Changed files to transform: $changed_files"
+echo "Changed files to transform: ${changed_files[@]}"
 
 matrix=$(echo "{}")
 
