@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "::group::transform-to-github-matrix"
+echo "::group::Transform to GitHub Matrix"
 
 changed_files=( $(echo "$CHANGED_FILES") )
 echo "Changed files to transform: $changed_files"
