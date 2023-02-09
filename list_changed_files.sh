@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "::group::list-changed-files"
-set -x #echo on
+set -x
 
 echo $(git log --oneline)
 
