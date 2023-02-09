@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "::group::list-changed-files"
+echo "::group::List Changed Files"
 
 echo "git log --oneline"
 echo $(git log --oneline)
