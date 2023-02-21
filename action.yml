@@ -24,7 +24,10 @@ runs:
       id: print-path-filters
       shell: bash
       run: |
-        echo "$PATH_FILTERS"
+        path_filters="$PATH_FILTERS"
+        path_filters=${path_filters/*[/}       # Remove everything up to and including [ sign
+        path_filters=${path_filters/\]*/}      # Remove ] and everything after it
+        echo "$path_filters"
       env: 
         PATH_FILTERS: ${{ inputs.path-filters }} 
     - name: Identify changed OpenAPI files
