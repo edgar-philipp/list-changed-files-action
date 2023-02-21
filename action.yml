@@ -1,12 +1,9 @@
 name: 'Identify changed OpenAPI files'
 description: 'Lists the changed OpenAPI yaml files in a given subdirectory of the git workspace'
 inputs:
-  on-path:  
-    description: 'filter for the subdirectory of the git workspace to scan'
-    required: true
-    default: 'openapi/**'
   path-filters:
     description: 'JSON array of strings representing path filter expressions, e.g. [\"openapi/**/*.yaml\", \"openapi/**/*.yml\"]'
+    required: true
     default: >
       ["openapi/**/*.yaml", "openapi/**/*.yml"]
 outputs:
@@ -20,18 +17,7 @@ runs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 2
-    - name: Print path filters
-      id: print-path-filters
-      shell: bash
-      run: |
-        path_filters="$PATH_FILTERS"
-        path_filters=${path_filters/*[/}       # Remove everything up to and including [ sign
-        path_filters=${path_filters/\]*/}      # Remove ] and everything after it
-        path_filters=${path_filters//,/}       # Remove all occurrences of , sign
-        path_filters=${path_filters//"/'}      # Replace all double quotes by single quotes
-        echo "$path_filters"
-      env: 
-        PATH_FILTERS: ${{ inputs.path-filters }} 
+        
     - name: Identify changed OpenAPI files
       id: list-files
       run: $GITHUB_ACTION_PATH/list_changed_files.sh
@@ -44,7 +30,8 @@ runs:
         GITHUB_WORKSPACE: ${{ github.workspace }}
         PREVIOUS_HASH: ${{ github.event.before }}
         CURRENT_HASH: ${{ github.event.after }}
-        PATH_FILTER: ${{ inputs.on-path }}
+        PATH_FILTERS: ${{ inputs.path-filters }} 
+        
     - name: Transform into GitHub matrix (special JSON format)
       id: transform-to-matrix
       run: $GITHUB_ACTION_PATH/transform_to_github_matrix.sh
