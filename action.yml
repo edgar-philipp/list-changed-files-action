@@ -26,7 +26,7 @@ runs:
       run: |
         echo "$PATH_FILTERS"
       env: 
-        PATH_FILTERS: ${{ fromJSON(inputs.path-filters) }} 
+        PATH_FILTERS: ${{ inputs.path-filters }} 
     - name: Identify changed OpenAPI files
       id: list-files
       run: $GITHUB_ACTION_PATH/list_changed_files.sh
