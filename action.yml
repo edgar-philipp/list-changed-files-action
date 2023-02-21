@@ -5,6 +5,10 @@ inputs:
     description: 'filter for the subdirectory of the git workspace to scan'
     required: true
     default: 'openapi/**'
+  path-filters:
+    description: 'JSON array of strings representing path filter expressions, e.g. [\"openapi/**/*.yaml\", \"openapi/**/*.yml\"]'
+    default: >
+      ['openapi/**/*.yaml', 'openapi/**/*.yml']
 outputs:
   matrix:
     description: "GitHub Matrix in JSON format with changed files"
@@ -16,6 +20,11 @@ runs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 2
+    - name: Print path filters
+      id: print-path-filters
+      shell: bash
+      run: |
+        echo "${{ fromJSON(inputs.path-filters) }}
     - name: Identify changed OpenAPI files
       id: list-files
       run: $GITHUB_ACTION_PATH/list_changed_files.sh
