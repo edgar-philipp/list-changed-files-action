@@ -8,7 +8,7 @@ inputs:
   path-filters:
     description: 'JSON array of strings representing path filter expressions, e.g. [\"openapi/**/*.yaml\", \"openapi/**/*.yml\"]'
     default: >
-      ['openapi/**/*.yaml', 'openapi/**/*.yml']
+      ["openapi/**/*.yaml", "openapi/**/*.yml"]
 outputs:
   matrix:
     description: "GitHub Matrix in JSON format with changed files"
@@ -28,6 +28,7 @@ runs:
         path_filters=${path_filters/*[/}       # Remove everything up to and including [ sign
         path_filters=${path_filters/\]*/}      # Remove ] and everything after it
         path_filters=${path_filters//,/}       # Remove all occurrences of , sign
+        path_filters=${path_filters//\"/'}     # Replace all double quotes by single quotes
         echo "$path_filters"
       env: 
         PATH_FILTERS: ${{ inputs.path-filters }} 
