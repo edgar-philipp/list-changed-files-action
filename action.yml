@@ -28,7 +28,7 @@ runs:
         path_filters=${path_filters/*[/}       # Remove everything up to and including [ sign
         path_filters=${path_filters/\]*/}      # Remove ] and everything after it
         path_filters=${path_filters//,/}       # Remove all occurrences of , sign
-        path_filters=${path_filters//\"/'}     # Replace all double quotes by single quotes
+        path_filters=${path_filters//"/'}      # Replace all double quotes by single quotes
         echo "$path_filters"
       env: 
         PATH_FILTERS: ${{ inputs.path-filters }} 
